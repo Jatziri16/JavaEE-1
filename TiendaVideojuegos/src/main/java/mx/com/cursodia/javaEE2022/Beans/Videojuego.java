@@ -2,7 +2,9 @@ package mx.com.cursodia.javaEE2022.Beans;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
+import mx.com.cursodia.javaEE2022.DataBaseH.DataBaseException;
 import mx.com.cursodia.javaEE2022.DataBaseH.DatabaseHelper;
 
 public class Videojuego {
@@ -53,29 +55,51 @@ public class Videojuego {
 	public void setInv_vid(int inv_vid) {
 		this.inv_vid = inv_vid;
 	}
-
-	public static ResultSet buscarTodosLosProveedores() //throws SQLException
-	{
-		String query = "SELECT cve_prov, nom_prov FROM proveedores";
-		DatabaseHelper dbh = new DatabaseHelper();
-		return dbh.executeQueryRS(query);
-	}
 	
+	@Override
+	public String toString() {
+		return "Videojuego [cve_vid=" + cve_vid + ", tit_vid=" + tit_vid + ", pre_vid=" + pre_vid + ", cveprov_vid="
+				+ cveprov_vid + ", inv_vid=" + inv_vid + "]";
+	}
 	//int cve, 
-	public static void insertar(String titulo, float precio, int cveprov, int inventario)
+	public static void insertar(String titulo, float precio, int cveprov, int inventario) throws DataBaseException
 	{
 		//cve_vid, 
 		//"+cve+",
-		String query = "INSERT INTO videojuegos (tit_vid, pre_vid, cveprov_vid, inv_vid) VALUES ";
+		String query = "INSERT INTO videojuegos (tit_vid, pre_vid, cveprov_vid, inv_vid, otro) VALUES ";
 		query += "('"+titulo+"',"+precio+","+cveprov+","+inventario+")";
 		DatabaseHelper dbh = new DatabaseHelper();
 		dbh.insertarVideojuego(query);
 	}
 	
-	public static ResultSet buscarTodos()
+	public static List<Videojuego> buscarTodos() throws DataBaseException
 	{
 		String query = "SELECT * FROM videojuegos";
 		DatabaseHelper dbh = new DatabaseHelper();
 		return dbh.executeQueryRS(query);
+	}
+	public static Videojuego getVideojuego(int cve) throws DataBaseException
+	{
+		String query = "SELECT * FROM videojuegos WHERE cve_vid="+cve;
+		DatabaseHelper dbh = new DatabaseHelper();
+		List<Videojuego> lista = dbh.executeQueryRS(query);
+		return lista.get(0); //AGREGAR excepcion
+	}
+	
+	public static List<Videojuego> filtrarVideojuegosProv(String cveprov) throws DataBaseException
+	{
+		String query = "SELECT * FROM videojuegos WHERE cveprov_vid="+cveprov;
+		DatabaseHelper dbh = new DatabaseHelper();
+		return dbh.executeQueryRS(query);
+	}
+	
+	public static int actualizarVideojuego(int cve, String titulo, float precio, int cveprov, int inventario) throws DataBaseException
+	{
+		String query = "UPDATE videojuegos "
+				+ "SET tit_vid='"+titulo+"', pre_vid="+precio+", cveprov_vid="+cveprov+", inv_vid="+inventario+" "
+				+ "WHERE cve_vid = "+cve;
+		DatabaseHelper dbh = new DatabaseHelper();
+		int n = dbh.insertarVideojuego(query);
+		return n;
 	}
 }

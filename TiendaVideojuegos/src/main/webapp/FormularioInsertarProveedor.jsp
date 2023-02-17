@@ -5,16 +5,16 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Formulario Alta Videojuego</title>
+		<title>Formulario Alta Proveedores</title>
 		<link rel=stylesheet href="css/style.css" type="text/css">
 		<!-- <link rel="stylesheet" src="css/style.css">-->
 		<!-- Bootstrap -->
   		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-		<script type="text/javascript" src="js/validaciones.js"></script>
+		<script type="text/javascript" src="js/validaciones_prov.js"></script>
 	</head>
 	<body style='background-color: rgba(50, 50, 50, 0.3);'>
 		<div id="fondo">
-			<h3 class="text-center mt-5 mb-1">Formulario Alta de Nuevo Videojuego</h3>
+			<h3 class="text-center mt-5 mb-1">Formulario Alta de Nuevo Proveedor</h3>
 			<div class="container rounded-3 contenedor">
 				<div class="row align-items-stretch justify-content-center">
 					<div class="login-container  col-7 col-sm-6 col-md-5 col-xl-5 rounded-end shadow">
@@ -32,37 +32,21 @@
 										<input class="form-control" id="clave"  type="text" name="cve" placeholder="*Clave">
 										<div class="text-danger invalido" id="warn_clave"></div>  -->
 										<!-- Título: -->
-										<input class="form-control mt-2" id="titulo" type="text" name="titulo" placeholder="*Titulo">
-										<div class="text-danger invalido" id="warn_titulo"></div>
+										<input class="form-control mt-2" id="nombre" type="text" name="nombre" placeholder="*Nombre">
+										<div class="text-danger invalido" id="warn_nombre"></div>
 										<!-- Precio: -->
-										<input class="form-control mt-2" id="precio" type="text" name="precio" placeholder="*Precio">
-										<div class="text-danger invalido" id="warn_precio"></div>
+										<input class="form-control mt-2" id="email" type="text" name="email" placeholder="*Email">
+										<div class="text-danger invalido" id="warn_email"></div>
 										
-										<!-- Clave del proveedor: 
-										<input class="form-control mt-2" id="cveprov" type="text" name="cveprov" placeholder="*Clave del proveedor">
-										<div class="text-danger invalido" id="warn_cveprov"></div>-->
-										
-										<%@ page import="mx.com.cursodia.javaEE2022.Beans.Proveedor"%>
-										<%@ page import="java.util.List" %>
-										<select class="form-select" aria-label="Default select example" id="selectprov">							 
-											<%			
-												List<Proveedor> lista = Proveedor.getProveedores();
-												for(Proveedor p:lista)
-												{%>
-													<option value="<%=p.getCve_prov()%>"><%=p.getCve_prov()%> - <%=p.getNom_prov()%></option>
-												<%}
-												//response.sendRedirect("FormularioInsertarVideojuego");
-											%>
-										</select>
 										
 										<!-- Inventario: -->
-										<input class="form-control mt-2" id="inventario" type="text" name="inventario" placeholder="*Inventario">
-										<div class="text-danger invalido" id="warn_inventario"></div>
+										<input class="form-control mt-2" id="telefono" type="text" name="telefono" placeholder="*Telefono">
+										<div class="text-danger invalido" id="warn_tel"></div>
 										
 										<input onclick="validarForms()" class="button btn-insertar mt-3 mb-2" type="button" value="Insertar">
-										<a  role="button" class="button btn-cancelar  mb-3" href="MostrarVideojuegos.jsp"> Cancelar </a>
-									
+										<a  role="button" class="button btn-cancelar  mb-3" href="MostrarProveedores.jsp"> Cancelar </a>
 									</form>
+									<%@ page import="mx.com.cursodia.javaEE2022.Beans.Proveedor"%>
 								<%}
 								else
 								{
@@ -93,7 +77,7 @@
 										<div class="text-danger invalido" id="warn_inventario"></div>
 										
 										<input onclick="validarFormsUpdate()" class="button btn-actualizar mt-3 mb-2" type="button" value="Actualizar">
-										<a  role="button" class="button btn-cancelar  mb-3" href="MostrarVideojuegos.jsp"> Cancelar </a>
+										<a  role="button" class="button btn-cancelar  mb-3" href="MostrarProveedores.jsp"> Cancelar </a>
 									</form>
 								<%}%>
 						</div>
