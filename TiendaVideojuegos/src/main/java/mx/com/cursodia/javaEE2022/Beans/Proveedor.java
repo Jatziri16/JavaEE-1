@@ -22,34 +22,36 @@ public class Proveedor {
 	public int getCve_prov() {
 		return cve_prov;
 	}
-	public void setCve_prov(int cve_prov) {
+	public void setcve_prov(int cve_prov) {
 		this.cve_prov = cve_prov;
 	}
 	public String getNom_prov() {
 		return nom_prov;
 	}
-	public void setNom_prov(String nom_prov) {
+	public void setnom_prov(String nom_prov) {
 		this.nom_prov = nom_prov;
 	}
 	public String getEmail_prov() {
 		return email_prov;
 	}
-	public void setEmail_prov(String email_prov) {
+	public void setemail_prov(String email_prov) {
 		this.email_prov = email_prov;
 	}
 	public String getTel_prov() {
 		return tel_prov;
 	}
-	public void setTel_prov(String tel_prov) {
+	public void settel_prov(String tel_prov) {
 		this.tel_prov = tel_prov;
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public static List<Proveedor> getProveedores() throws DataBaseException//throws SQLException
 	{
 		String query = "SELECT * FROM proveedores";
 		DatabaseHelper dbh = new DatabaseHelper();
-		return dbh.executeQueryProv(query);
+		//return dbh.executeQueryProv(query);
+		return dbh.selectAll(query, Proveedor.class);
 	}
 	public static Proveedor getProveedor(int cve) throws DataBaseException//throws SQLException
 	{
