@@ -15,19 +15,6 @@
 		<%@ page import="mx.com.cursodia.javaEE2022.Beans.Proveedor"%>
 		<%@ page import="java.util.List" %>
 		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-		<form name="filtroProveedor" action="ControladorVideojuegos.do" method="GET">
-			<select name="Proveedor">
-				<option value="Seleccionar">Seleccionar</option>
-				<%
-					List<Proveedor> listaProveedores = null;
-					listaProveedores = (List<Proveedor>)request.getAttribute("listaProveedores"); %>
-					
-					<c:forEach var="Proveedor" items="${listaProveedores}">
-						<option value="${Proveedor}">${Proveedor.nom_prov}</option>
-					</c:forEach>
-			</select>
-			<input type="submit" value="Filtrar">
-		</form>
 		
 		<div class="container">
 	        <br>
@@ -40,64 +27,58 @@
 	        </div>
 	        
 	        <%@ page import="java.util.Objects" %>
-			<% 
-				String query = request.getParameter("query");
-				if(Objects.isNull(query))
-				{
-					System.out.println("clave de proveedor = null");%>
-					
-					Filtrar videojuegos por proveedor: 
-					<select class="form-select" aria-label="Default select example" id="selectprov" onchange="filtrarVideojuegos()">
-						<option value="0">Todos</option>							 
-						<%			
-							List<Proveedor> prov_list = (List<Proveedor>)request.getAttribute("listaProveedores"); //Proveedor.getProveedores();
-							for(Proveedor p:prov_list)
-							{%>
-								<option value="<%=p.getCve_prov()%>"><%=p.getCve_prov()%> - <%=p.getNom_prov()%></option>
-							<%}
-						%>
-					</select>
-					
-			        
-					<table id="dtBasicExample" class="table table-striped mt-4">
-			        	<thead>
-			            	<tr>
-			              		<th>ID</th>
-			              		<th>Nombre</th>
-			              		<th>Precio</th>
-			              		<th>Cve Prov</th>
-			              		<th>Inventario</th>
-			            	</tr>
-			          	</thead>
-			          	<tbody>
-			            	<%			
-								List<Videojuego> vid_list = (List<Videojuego>)request.getAttribute("listaVideojuegos");  //Videojuego.buscarTodos();
-								for(Videojuego v:vid_list)
-								{%>
-									<tr>
-										<th><%=v.getCve_vid()%></th>
-										<td><%=v.getTit_vid()%></td>
-										<td><%=v.getPre_vid()%></td>
-										<td><%=v.getCveprov_vid()%></td>
-										<td><%=v.getInv_vid()%></td>
-										<td>
-											<input type="button" class="edit" value="Editar" onclick="location.href= 'FormularioInsertarVideojuego.do?CVE=<%=v.getCve_vid()%>'"/>
-										<!-- <a href="FormularioInsertarVideojuego.jsp?CVE=<%v.getCve_vid();%>">Editar</a></td> -->
-									</tr>
-								<%}
-							%>
-			          	</tbody>
-			        </table>
+	        <form name="filtroProveedor" action="ControladorVideojuegos.do" method="GET">
+				Filtrar videojuegos por proveedor: 
+				<select name="Proveedor" class="form-select" id="selectprov" onchange="this.form.submit()">
+					<option value="" disabled selected>Selecciona un proveedor</option>
+					<option value="Todos">Todos</option>
+					<!-- Segunda opcion para mostrar los proveedores MEJORADA - JSTL -->
+					<%
+						List<Proveedor> listaProveedores = null;
+						listaProveedores = (List<Proveedor>)request.getAttribute("listaProveedores"); %>
+						
+						<c:forEach var="Proveedor" items="${listaProveedores}">
+							<option value="${Proveedor.cve_prov}">${Proveedor.cve_prov} - ${Proveedor.nom_prov}</option>
+						</c:forEach>	
+												 
+					<!-- Primera opcion para mostrar los proveedores
+					<%			
+						List<Proveedor> prov_list = (List<Proveedor>)request.getAttribute("listaProveedores"); //Proveedor.getProveedores();
+						for(Proveedor p:prov_list)
+						{%>
+							<option value="<%=p.getCve_prov()%>"><%=p.getCve_prov()%> - <%=p.getNom_prov()%></option>
+						<%}
+					%> -->
+				</select>
+			</form>
+			
 	        
-				<%}
-				else
-				{
-					System.out.println("clave de proveedor = "+query);
-					//response.sendRedirect("MostrarVideojuegos.jsp?QUERY=SELECT * FROM videojuegos WHERE cveprov_vid="+clave);
-				}
-			%>
-				
-	        
+			<table id="dtBasicExample" class="table table-striped mt-4 mb-5">
+	        	<thead>
+	            	<tr>
+	              		<th>ID</th>
+	              		<th>Nombre</th>
+	              		<th>Precio</th>
+	              		<th>Cve Prov</th>
+	              		<th>Inventario</th>
+	            	</tr>
+	          	</thead>
+	          	<tbody>						
+					<%List<Videojuego> listaVideojuegos= (List<Videojuego>)request.getAttribute("listaVideojuegos");%>
+					<c:forEach var="Videojuego" items="${listaVideojuegos}">
+						<tr>
+							<th>${Videojuego.cve_vid}</th>
+							<td>${Videojuego.tit_vid}</td>
+							<td>${Videojuego.pre_vid}</td>
+							<td>${Videojuego.cveprov_vid}</td>
+							<td>${Videojuego.inv_vid}</td>
+							<td>
+								<input type="button" class="edit" value="Editar" onclick="location.href= 'FormularioInsertarVideojuego.do?CVE=${Videojuego.cve_vid}'"/>
+							</td>
+						</tr>
+					</c:forEach>
+	          	</tbody>
+	        </table>
 		</div>
 	</body>
 </html>

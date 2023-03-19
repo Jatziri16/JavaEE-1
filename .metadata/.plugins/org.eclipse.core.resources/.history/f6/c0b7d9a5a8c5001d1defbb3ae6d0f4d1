@@ -1,0 +1,9 @@
+package mx.com.cursodia.javaEE2022.acciones;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
+
+public abstract class Accion 
+{
+	public abstract String ejecutar(HttpServlet request, HttpServletResponse response);
+}
