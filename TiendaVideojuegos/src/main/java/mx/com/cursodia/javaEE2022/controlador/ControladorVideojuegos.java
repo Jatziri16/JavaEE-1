@@ -23,6 +23,7 @@ public class ControladorVideojuegos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	//Capturar los do
+	@SuppressWarnings("static-access")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		System.out.println("!!! Entró al controlador");
@@ -30,10 +31,26 @@ public class ControladorVideojuegos extends HttpServlet {
 		//el verbo do será capturado por el conbtrolador que recibira una peticion (request) y una respuesta (response)
 		RequestDispatcher despachador = null; //Elemento que atienda las peticiones
 		
-		try {
+		//try {
 			if(request.getServletPath().equals("/ControladorVideojuegos.do"))
 			{
-				List<Videojuego> listaVideojuegos = Videojuego.buscarTodos();;
+				if(request.getParameter("Proveedor").equals("Todos"))
+				{
+					System.out.println("Muestra todos los videojuegos");
+					accion.getAccion("/MostrarVideojuegos.do");
+				}
+				else
+				{
+					System.out.println("Filtra por proveedor: "+request.getParameter("Proveedor"));
+					accion.getAccion("/FiltrarVideojuegosPorProveedor.do");
+				}
+				//Despues de que haga su trabajo a donde se va a redirijisr
+				despachador = request.getRequestDispatcher(accion.ejecutar(request, response));
+				//Empaquetamos la respuesta
+				despachador.forward(request, response);
+				
+				
+				/*List<Videojuego> listaVideojuegos = Videojuego.buscarTodos();;
 				if(!request.getParameter("Proveedor").equals("Todos"))
 				{
 					int prov = Integer.parseInt(request.getParameter("Proveedor"));
@@ -49,30 +66,33 @@ public class ControladorVideojuegos extends HttpServlet {
 				despachador = request.getRequestDispatcher("MostrarVideojuegos.jsp");
 				
 				//Empaquetamos la respuesta
-				despachador.forward(request, response);
+				despachador.forward(request, response);*/
 			}
 			if(request.getServletPath().equals("/MostrarVideojuegos.do"))
 			{
-				System.out.println("MostrarVideojuegos.do");
+				/*System.out.println("MostrarVideojuegos.do");
 				List<Videojuego> listaVideojuegos = Videojuego.buscarTodos();
-				List<Proveedor> listaProveedores = Proveedor.getProveedores();
+				List<Proveedor> listaProveedores = Proveedor.getListProveedores();
 				
 				//Asignamos un atributo a la petición para que accedan con ese nombre ""
 				request.setAttribute("listaVideojuegos", listaVideojuegos);
-				request.setAttribute("listaProveedores", listaProveedores);
+				request.setAttribute("listaProveedores", listaProveedores);*/
 				
 				//Despues de que haga su trabajo a donde se va a redirijisr
-				despachador = request.getRequestDispatcher("MostrarVideojuegos.jsp");
+				despachador = request.getRequestDispatcher(accion.getAccion("/MostrarVideojuegos.do").ejecutar(request, response));
 				
 				//Empaquetamos la respuesta
 				despachador.forward(request, response);
 			}
 			else if(request.getServletPath().equals("/FormularioInsertarVideojuego.do"))
 			{
+				//accion.getAccion("/FormularioInsertarVideojuego.do").ejecutar(request, response);
+				
+				
 				System.out.println("FormularioInsertarVideojuego.do");
-				List<Proveedor> listaProveedores = Proveedor.getProveedores();
-				request.setAttribute("listaProveedores", listaProveedores);
-				despachador = request.getRequestDispatcher("FormularioInsertarVideojuego.jsp");
+				//List<Proveedor> listaProveedores = Proveedor.getProveedores();
+				//request.setAttribute("listaProveedores", listaProveedores);
+				despachador = request.getRequestDispatcher(accion.getAccion("/FormularioInsertarVideojuego.do").ejecutar(request, response));
 				
 				//Empaquetamos la respuesta
 				despachador.forward(request, response);
@@ -84,9 +104,9 @@ public class ControladorVideojuegos extends HttpServlet {
 				response.sendRedirect(accion.getAccion("/InsertarVideojuego.do").ejecutar(request, response));
 				//response.sendRedirect("MostrarVideojuegos.do");
 			}
-		} catch (DataBaseException e) {
+		/*} catch (DataBaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 }

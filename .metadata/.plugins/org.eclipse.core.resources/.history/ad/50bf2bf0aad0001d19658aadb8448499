@@ -1,0 +1,78 @@
+package mx.com.cursodia.javaEE2022.Beans;
+
+import java.util.List;
+
+import mx.com.cursodia.javaEE2022.DataBaseH.DataBaseException;
+import mx.com.cursodia.javaEE2022.DataBaseH.DatabaseHelper;
+
+public class Proveedor {
+	int cve_prov;
+	String nom_prov;
+	String email_prov;
+	String tel_prov;
+	public Proveedor(int cve_prov, String nom_prov, String email_prov, String tel_prov) {
+		super();
+		this.cve_prov = cve_prov;
+		this.nom_prov = nom_prov;
+		this.email_prov = email_prov;
+		this.tel_prov = tel_prov;
+	}
+	public Proveedor() {}
+	
+	public int getCve_prov() {
+		return cve_prov;
+	}
+	public void setcve_prov(int cve_prov) {
+		this.cve_prov = cve_prov;
+	}
+	public String getNom_prov() {
+		return nom_prov;
+	}
+	public void setnom_prov(String nom_prov) {
+		this.nom_prov = nom_prov;
+	}
+	public String getEmail_prov() {
+		return email_prov;
+	}
+	public void setemail_prov(String email_prov) {
+		this.email_prov = email_prov;
+	}
+	public String getTel_prov() {
+		return tel_prov;
+	}
+	public void settel_prov(String tel_prov) {
+		this.tel_prov = tel_prov;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public static List<Proveedor> getProveedores() throws DataBaseException//throws SQLException
+	{
+		String query = "SELECT * FROM proveedores";
+		DatabaseHelper dbh = new DatabaseHelper();
+		//return dbh.executeQueryProv(query);
+		return dbh.selectAll(query, Proveedor.class);
+	}
+	public static List<Proveedor> getListProveedores() throws DataBaseException//throws SQLException
+	{
+		String query = "SELECT * FROM proveedores";
+		DatabaseHelper dbh = new DatabaseHelper();
+		//return dbh.executeQueryProv(query);
+		return dbh.selectAll(query, Proveedor.class);
+	}
+	public static Proveedor getProveedor(int cve) throws DataBaseException//throws SQLException
+	{
+		String query = "SELECT * FROM proveedores WHERE cve_prov="+cve;
+		DatabaseHelper dbh = new DatabaseHelper();
+		List<Proveedor> lista =  dbh.executeQueryProv(query);
+		return lista.get(0);
+	}
+	
+	public static void insertar(String nombre, String email, String tel) throws DataBaseException
+	{
+		String query = "INSERT INTO proveedores (nom_prov, email_prov, tel_prov) VALUES ";
+		query += "('"+nombre+"','"+email+"','"+tel+"')";
+		DatabaseHelper dbh = new DatabaseHelper();
+		dbh.insertarVideojuego(query);
+	}
+}
