@@ -14,7 +14,7 @@ public class FormularioInsertarVideojuegoAccion extends Accion{
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
 
 		
-		System.out.println("FormularioInsertarVideojuego.do");
+		System.out.println("--> FormularioInsertarVideojuegoAccion");
 		List<Proveedor> listaProveedores = null;
 		try {
 			listaProveedores = Proveedor.getProveedores();

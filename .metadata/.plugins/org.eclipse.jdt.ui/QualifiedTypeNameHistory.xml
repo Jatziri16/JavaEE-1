@@ -14,9 +14,7 @@
     <fullyQualifiedTypeName name="org.apache.logging.log4j.core.Logger"/>
     <fullyQualifiedTypeName name="javax.servlet.ServletException"/>
     <fullyQualifiedTypeName name="java.io.IOException"/>
-    <fullyQualifiedTypeName name="mx.com.cursodia.javaEE2022.Beans.Videojuego"/>
     <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="mx.com.cursodia.javaEE2022.Beans.Proveedor"/>
     <fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
     <fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
@@ -24,4 +22,13 @@
     <fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
     <fullyQualifiedTypeName name="mx.com.cursodia.javaEE2022.acciones.Accion"/>
     <fullyQualifiedTypeName name="mx.com.cursodia.javaEE2022.acciones.InsertarVideojuegoAccion"/>
+    <fullyQualifiedTypeName name="mx.com.cursodia.javaEE2022.Beans.Videojuego"/>
+    <fullyQualifiedTypeName name="org.hibernate.HibernateException"/>
+    <fullyQualifiedTypeName name="org.hibernate.query.Query"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.hibernate.cfg.Configuration"/>
+    <fullyQualifiedTypeName name="mx.com.cursodia.javaEE2022.DataBaseH.HibernateHelper"/>
+    <fullyQualifiedTypeName name="org.hibernate.SessionFactory"/>
+    <fullyQualifiedTypeName name="org.hibernate.Session"/>
+    <fullyQualifiedTypeName name="org.hibernate.Transaction"/>
 </qualifiedTypeNameHistroy>

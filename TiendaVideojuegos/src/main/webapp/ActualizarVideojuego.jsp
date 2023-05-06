@@ -10,7 +10,7 @@
 		int inventario = Integer.parseInt(request.getParameter("inventario"));
 		
 		Videojuego.actualizarVideojuego(cve, titulo, precio, cveprov, inventario);
-		response.sendRedirect("MostrarVideojuegos.jsp");
+		response.sendRedirect("MostrarVideojuegos.do");
 	 %>
 <!-- 
 <!DOCTYPE html>

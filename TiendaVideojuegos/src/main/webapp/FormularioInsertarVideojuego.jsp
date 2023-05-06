@@ -60,7 +60,6 @@
 										<div class="text-danger invalido" id="warn_inventario"></div>
 										
 										<button type="submit" class="button btn-insertar mt-3 mb-2" type="button" value="Insertar">INSERTAR</button>
-										<input onclick="validarForms()" class="button btn-insertar mt-3 mb-2" type="button" value="Insertar">
 										<a  role="button" class="button btn-cancelar  mb-3" href="MostrarVideojuegos.jsp"> Cancelar </a>
 									
 									</form>
@@ -74,9 +73,9 @@
 									Proveedor prov = Proveedor.getProveedor(v.getCveprov_vid());
 									%>
 									
-									<form action="InsertarVideojuego.do" method="GET">
+									<form action="ModificarVideojuego.do" method="GET">
 										<!-- Clave:  -->
-										<input class="form-control" id="clave"  type="text" name="cve" placeholder="*Clave" value="<%=v.getCve_vid()%>" disabled>
+										<input class="form-control" id="clave"  type="text" name="clave" placeholder="*Clave" value="<%=v.getCve_vid()%>">
 										
 										<!-- Título: -->
 										<input class="form-control mt-2" id="titulo" type="text" name="titulo" placeholder="*Titulo" value="<%=v.getTit_vid()%>">
@@ -85,16 +84,26 @@
 										<input class="form-control mt-2" id="precio" type="text" name="precio" placeholder="*Precio" value="<%=v.getPre_vid()%>">
 										<div class="text-danger invalido" id="warn_precio"></div>
 										
-										<!-- Clave del proveedor:  -->
-										<input class="form-control mt-2" id="cveprov" type="text" name="cveprov" placeholder="*Clave del proveedor" value="<%=v.getCveprov_vid()%> - <%=prov.getNom_prov()%>" disabled>
+										<!-- Clave del proveedor: 
+										<input class="form-control mt-2" id="cveprov" type="text" name="cveprov" placeholder="*Clave del proveedor" value="<%=v.getCveprov_vid()%> - <%=prov.getNom_prov()%>"> -->
 																	
+										<select class="form-select" aria-label="Default select example" id="selectprov" name="cveprov" value="<%=v.getCveprov_vid()%>">							 
+											<%			
+												List<Proveedor> lista = Proveedor.getProveedores();
+												for(Proveedor p:lista)
+												{%>
+													<option value="<%=p.getCve_prov()%>"><%=p.getCve_prov()%> - <%=p.getNom_prov()%></option>
+												<%}
+												//response.sendRedirect("FormularioInsertarVideojuego");
+											%>
+										</select>
 										
 										<!-- Inventario: -->
 										<input class="form-control mt-2" id="inventario" type="text" name="inventario" placeholder="*Inventario" value="<%=v.getInv_vid()%>">
 										<div class="text-danger invalido" id="warn_inventario"></div>
 										
-										<input onclick="validarFormsUpdate()" class="button btn-actualizar mt-3 mb-2" type="button" value="Actualizar">
-										<a  role="button" class="button btn-cancelar  mb-3" href="MostrarVideojuegos.jsp"> Cancelar </a>
+										<button type="submit" class="button btn-actualizar mt-3 mb-2" type="button" value="Actualizar">ACTUALIZAR</button>
+										<a  role="button" class="button btn-cancelar  mb-3" href="MostrarVideojuegos.do"> Cancelar </a>
 									</form>
 								<%}%>
 						</div>

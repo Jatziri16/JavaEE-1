@@ -76,7 +76,7 @@
 										<input class="form-control mt-2" id="inventario" type="text" name="inventario" placeholder="*Inventario" value="<%=v.getInv_vid()%>">
 										<div class="text-danger invalido" id="warn_inventario"></div>
 										
-										<input onclick="validarFormsUpdate()" class="button btn-actualizar mt-3 mb-2" type="button" value="Actualizar">
+										<input class="button btn-actualizar mt-3 mb-2" type="button" value="Actualizar">
 										<a  role="button" class="button btn-cancelar  mb-3" href="MostrarProveedores.jsp"> Cancelar </a>
 									</form>
 								<%}%>
@@ -86,7 +86,7 @@
 				
 				<div class="row mt-3 align-items-stretch justify-content-center">
 					<div class="col-7 col-sm-6 col-md-5 col-xl-5">
-						<div class="alert alert-danger" role="alert" id="ilistalert" style="display:none">hola</div>							
+						<div class="alert alert-danger" role="alert" id="ilistalert" style="display:none">holaaa</div>							
 					</div>
 				</div>
 			</div>

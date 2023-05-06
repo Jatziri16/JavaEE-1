@@ -34,6 +34,7 @@ public class ControladorVideojuegos extends HttpServlet {
 		//try {
 			if(request.getServletPath().equals("/ControladorVideojuegos.do"))
 			{
+				System.out.println("--> ControladorVideojuegos.do");
 				if(request.getParameter("Proveedor").equals("Todos"))
 				{
 					System.out.println("Muestra todos los videojuegos");
@@ -89,7 +90,7 @@ public class ControladorVideojuegos extends HttpServlet {
 				//accion.getAccion("/FormularioInsertarVideojuego.do").ejecutar(request, response);
 				
 				
-				System.out.println("FormularioInsertarVideojuego.do");
+				System.out.println("--> FormularioInsertarVideojuego.do");
 				//List<Proveedor> listaProveedores = Proveedor.getProveedores();
 				//request.setAttribute("listaProveedores", listaProveedores);
 				despachador = request.getRequestDispatcher(accion.getAccion("/FormularioInsertarVideojuego.do").ejecutar(request, response));
@@ -99,9 +100,17 @@ public class ControladorVideojuegos extends HttpServlet {
 			}
 			else if(request.getServletPath().equals("/InsertarVideojuego.do"))
 			{
+				System.out.println("--> InsertarVideojuego.do");
 				//accion = new InsertarVideojuegoAccion();
 				//response.sendRedirect(accion.ejecutar(request, response));
 				response.sendRedirect(accion.getAccion("/InsertarVideojuego.do").ejecutar(request, response));
+				//response.sendRedirect("MostrarVideojuegos.do");
+			} else if(request.getServletPath().equals("/ModificarVideojuego.do"))
+			{
+				System.out.println("--> ModificarVideojuego.do");
+				//accion = new InsertarVideojuegoAccion();
+				//response.sendRedirect(accion.ejecutar(request, response));
+				response.sendRedirect(accion.getAccion("/ModificarVideojuego.do").ejecutar(request, response));
 				//response.sendRedirect("MostrarVideojuegos.do");
 			}
 		/*} catch (DataBaseException e) {

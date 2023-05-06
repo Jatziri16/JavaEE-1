@@ -9,7 +9,7 @@ public class InsertarVideojuegoAccion extends Accion
 {
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("InsertarVideojuego.do");
+		System.out.println("--> InsertarVideojuegoAccion");
 		//int cve = Integer.parseInt(request.getParameter("clave"));
 		System.out.println("titulo = "+request.getParameter("titulo"));
 		System.out.println("precio = "+request.getParameter("precio"));

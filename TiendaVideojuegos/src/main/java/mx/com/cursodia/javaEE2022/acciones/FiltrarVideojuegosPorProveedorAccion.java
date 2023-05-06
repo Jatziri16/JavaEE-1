@@ -36,7 +36,7 @@ public class FiltrarVideojuegosPorProveedorAccion extends Accion{
 		request.setAttribute("listaVideojuegos", listaVideojuegos);
 		request.setAttribute("listaProveedores", listaProveedores);
 		
-		return "MostrarVideojuegos.jsp";
+		return "MostrarVideojuegos.do";
 	}
 
 }

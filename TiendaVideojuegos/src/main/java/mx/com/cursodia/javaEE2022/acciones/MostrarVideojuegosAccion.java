@@ -13,7 +13,7 @@ public class MostrarVideojuegosAccion extends Accion {
 
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("MostrarVideojuegos.do");
+		System.out.println("--> MostrarVideojuegosAccion");
 		List<Videojuego> listaVideojuegos = null;
 		List<Proveedor> listaProveedores = null;
 		try {
