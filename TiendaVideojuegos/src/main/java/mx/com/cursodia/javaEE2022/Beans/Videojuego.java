@@ -17,12 +17,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import javax.persistence.Table;
 import javax.persistence.TypedQuery;
 
@@ -115,15 +117,25 @@ public class Videojuego {
 		DatabaseHelper dbh = new DatabaseHelper();
 		dbh.insertarVideojuego(query);*/
 		
-		SessionFactory factoriaS = HibernateHelper.getSessionFactory();
+		/*SessionFactory factoriaS = HibernateHelper.getSessionFactory();
 		Session session = factoriaS.openSession();
 		Transaction transaction = session.beginTransaction();
 		Videojuego v = new Videojuego(titulo, precio, cveprov, inventario);
 		session.persist(v); //session.saveOrUpdate(v);
-		transaction.commit();
+		transaction.commit();*/
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JavaEE2022");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		tx = em.getTransaction();
+		tx.begin();
+		
+		// Agregar Try/Catch
+		em.persist(new Videojuego(titulo, precio, cveprov, inventario));
+		tx.commit();
+		em.close();
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static List<Videojuego> buscarTodos() throws DataBaseException
 	{
 		/*String query = "SELECT * FROM videojuegos";
@@ -145,23 +157,34 @@ public class Videojuego {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JavaEE2022");
 		EntityManager em = emf.createEntityManager();
 		TypedQuery<Videojuego> query = em.createQuery("SELECT V FROM Videojuego V", Videojuego.class);
-		List<Videojuego> lista = query.getResultList();
-		for(Videojuego v: lista)
-		{
-			System.out.println(v.getTit_vid());
+		List<Videojuego> lista = null;
+		try {
+			lista = query.getResultList();
+		} catch(PersistenceException e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
 		}
 		return lista;
 	}
-	public static Videojuego getVideojuego(int cve) throws DataBaseException
+	public static Videojuego getVideojuego(int cve)
 	{
 		/*String query = "SELECT * FROM videojuegos WHERE cve_vid="+cve;
 		DatabaseHelper dbh = new DatabaseHelper();
 		List<Videojuego> lista = dbh.executeQueryRS(query);
 		return lista.get(0); //AGREGAR excepcion*/
 		
-		SessionFactory factoriaS = HibernateHelper.getSessionFactory();
+		/*SessionFactory factoriaS = HibernateHelper.getSessionFactory();
 		Session session = factoriaS.openSession();
-		return (Videojuego) session.get(Videojuego.class, cve);
+		return (Videojuego) session.get(Videojuego.class, cve);*/
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JavaEE2022");
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<Videojuego> query = em.createQuery("SELECT V FROM Videojuego V JOIN FETCH V.proveedor WHERE V.cve_vid = :cve", Videojuego.class);
+		query.setParameter(1, cve);
+		Videojuego videojuego = query.getSingleResult();
+		em.close();
+		return videojuego;
 	}
 	
 	public static List<Videojuego> filtrarVideojuegosProv(int cveprov) throws DataBaseException
@@ -174,7 +197,7 @@ public class Videojuego {
 		return session.createQuery("from Videojuego videojuegos WHERE videojuegos.cveprov_vid = "+cveprov).list();
 	}
 	
-	public static void actualizarVideojuego(int cve, String titulo, float precio, int cveprov, int inventario) throws DataBaseException
+	public static void actualizarVideojuego(int cve, String titulo, float precio, int cveprov, int inventario)
 	{
 		/*String query = "UPDATE videojuegos "
 				+ "SET tit_vid='"+titulo+"', pre_vid="+precio+", cveprov_vid="+cveprov+", inv_vid="+inventario+" "
@@ -183,11 +206,44 @@ public class Videojuego {
 		int n = dbh.insertarVideojuego(query);
 		return n;*/
 		
-		SessionFactory factoriaS = HibernateHelper.getSessionFactory();
+		/*SessionFactory factoriaS = HibernateHelper.getSessionFactory();
 		Session session = factoriaS.openSession();
 		Transaction transaction = session.beginTransaction();
 		Videojuego v = new Videojuego(cve, titulo, precio, cveprov, inventario);
 		session.saveOrUpdate(v); //session.saveOrUpdate(v);
-		transaction.commit();
+		transaction.commit();*/
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JavaEE2022");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		tx = em.getTransaction();
+		tx.begin();
+		
+		// Agregar Try/Catch
+		em.merge(new Videojuego(cve, titulo, precio, cveprov, inventario));
+		System.out.println("Se guardaron los cambios!!!");
+		tx.commit();
+		em.close();
+	}
+	
+	public static boolean borrarVideojuego(int cve)
+	{
+		boolean resp = false;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JavaEE2022");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		tx = em.getTransaction();
+		tx.begin();
+		try {
+			em.remove(em.merge(getVideojuego(cve)));
+			resp = true;
+			tx.commit();
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			em.getTransaction().rollback();
+			e.printStackTrace();
+		}
+		em.close();
+		return resp;
 	}
 }

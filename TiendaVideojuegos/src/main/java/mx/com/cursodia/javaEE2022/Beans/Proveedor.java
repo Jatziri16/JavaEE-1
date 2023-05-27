@@ -3,11 +3,16 @@ package mx.com.cursodia.javaEE2022.Beans;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Persistence;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -91,11 +96,17 @@ public class Proveedor {
 		//return dbh.executeQueryProv(query);
 		return dbh.selectAll(query, Proveedor.class);*/
 		
-		SessionFactory factoriaS = HibernateHelper.getSessionFactory();
+		/*SessionFactory factoriaS = HibernateHelper.getSessionFactory();
 		Session session = factoriaS.openSession();
 		Query consulta = session.createQuery("from Proveedor proveedores");
 		List<Proveedor> lista =  consulta.list();
 		session.close();
+		return lista;*/
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JavaEE2022");
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<Proveedor> query = em.createQuery("SELECT P FROM Proveedor P", Proveedor.class);
+		List<Proveedor> lista = query.getResultList();
 		return lista;
 	}
 	public static Proveedor getProveedor(int cve) throws DataBaseException//throws SQLException
@@ -110,18 +121,27 @@ public class Proveedor {
 		return (Proveedor) session.get(Proveedor.class, cve);
 	}
 	
-	public static void insertar(String nombre, String email, String tel) throws DataBaseException
+	public static void insertar(String nombre, String email, String tel)
 	{
 		/*String query = "INSERT INTO proveedores (nom_prov, email_prov, tel_prov) VALUES ";
 		query += "('"+nombre+"','"+email+"','"+tel+"')";
 		DatabaseHelper dbh = new DatabaseHelper();
 		dbh.insertarVideojuego(query);*/
 		
-		SessionFactory factoriaS = HibernateHelper.getSessionFactory();
+		/*SessionFactory factoriaS = HibernateHelper.getSessionFactory();
 		Session session = factoriaS.openSession();
 		Transaction transaction = session.beginTransaction();
 		Proveedor p = new Proveedor(nombre, email, tel);
 		session.persist(p); //session.saveOrUpdate(v);
-		transaction.commit();
+		transaction.commit();*/
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JavaEE2022");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		tx = em.getTransaction();
+		tx.begin();
+		em.persist(new Proveedor(nombre, email, tel));
+		tx.commit();
+		em.close();
 	}
 }

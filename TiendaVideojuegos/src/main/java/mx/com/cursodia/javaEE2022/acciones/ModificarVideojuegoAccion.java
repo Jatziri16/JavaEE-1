@@ -24,12 +24,7 @@ public class ModificarVideojuegoAccion extends Accion {
 		int cveprov = Integer.parseInt(request.getParameter("cveprov"));
 		int inventario = Integer.parseInt(request.getParameter("inventario"));
 		
-		try
-		{
-			Videojuego.actualizarVideojuego(cve, titulo, precio, cveprov, inventario);
-		} catch (DataBaseException e) {
-			e.printStackTrace();
-		}
+		Videojuego.actualizarVideojuego(cve, titulo, precio, cveprov, inventario);
 		//response.sendRedirect("MostrarVideojuegos.do");
 		return "MostrarVideojuegos.do";
 	}
