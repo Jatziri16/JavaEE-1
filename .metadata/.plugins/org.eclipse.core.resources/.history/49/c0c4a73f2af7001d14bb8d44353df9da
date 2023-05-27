@@ -1,0 +1,5 @@
+package mx.com.cursodia.javaEE2022.DataBaseH;
+
+public class JPAHelper {
+
+}

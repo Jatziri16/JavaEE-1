@@ -9,6 +9,7 @@
 		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 		<property name="show_sql">true</property>
 	
-		<mapping resource="mx/com/cursodia/javaEE2022/Beans/Videojuego.xml"></mapping>
+		<mapping class="mx.com.cursodia.javaEE2022.Beans.Videojuego"/>
+		<mapping class="mx.com.cursodia.javaEE2022.Beans.Proveedor"/>
 	</session-factory>
 </hibernate-configuration>

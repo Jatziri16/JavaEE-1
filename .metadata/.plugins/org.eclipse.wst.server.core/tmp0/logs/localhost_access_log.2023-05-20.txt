@@ -1,0 +1,7 @@
+127.0.0.1 - - [20/May/2023:10:11:21 -0500] "GET / HTTP/1.1" 404 687
+0:0:0:0:0:0:0:1 - - [20/May/2023:10:11:29 -0500] "GET /TiendaVideojuegos/ HTTP/1.1" 500 24720
+0:0:0:0:0:0:0:1 - - [20/May/2023:10:11:29 -0500] "GET /favicon.ico HTTP/1.1" 404 698
+127.0.0.1 - - [20/May/2023:10:12:31 -0500] "GET / HTTP/1.1" 404 687
+0:0:0:0:0:0:0:1 - - [20/May/2023:10:12:43 -0500] "GET /TiendaVideojuegos/ HTTP/1.1" 200 7753
+0:0:0:0:0:0:0:1 - - [20/May/2023:10:12:43 -0500] "GET /TiendaVideojuegos/js/filtrar_vid.js HTTP/1.1" 404 730
+0:0:0:0:0:0:0:1 - - [20/May/2023:10:12:43 -0500] "GET /TiendaVideojuegos/css/mostrarVideojuegos.css HTTP/1.1" 304 -

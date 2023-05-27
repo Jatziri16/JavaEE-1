@@ -2,17 +2,52 @@ package mx.com.cursodia.javaEE2022.Beans;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.query.Query;
+
 import mx.com.cursodia.javaEE2022.DataBaseH.DataBaseException;
 import mx.com.cursodia.javaEE2022.DataBaseH.DatabaseHelper;
+import mx.com.cursodia.javaEE2022.DataBaseH.HibernateHelper;
 
+@Entity
+@Table(name="proveedores")
 public class Proveedor {
-	int cve_prov;
+	@Id
+	@PrimaryKeyJoinColumn(name = "cve_prov")
+	private Integer cve_prov;
+	public int hashCode()
+	{
+		return cve_prov.hashCode();
+	}
 	String nom_prov;
+	@Fetch(value = FetchMode.SELECT) //Como se van a ir leyendo cada uno de los registros
+	@OneToMany
+	@JoinColumn(name="cve_prov")
+	private List<Videojuego> listaVideojuegos;
 	String email_prov;
 	String tel_prov;
+	
+	
 	public Proveedor(int cve_prov, String nom_prov, String email_prov, String tel_prov) {
 		super();
 		this.cve_prov = cve_prov;
+		this.nom_prov = nom_prov;
+		this.email_prov = email_prov;
+		this.tel_prov = tel_prov;
+	}
+	public Proveedor(String nom_prov, String email_prov, String tel_prov) {
+		super();
 		this.nom_prov = nom_prov;
 		this.email_prov = email_prov;
 		this.tel_prov = tel_prov;
@@ -45,27 +80,48 @@ public class Proveedor {
 	}
 	
 	
+	
+	
+	
 	@SuppressWarnings("unchecked")
 	public static List<Proveedor> getProveedores() throws DataBaseException//throws SQLException
 	{
-		String query = "SELECT * FROM proveedores";
+		/*String query = "SELECT * FROM proveedores";
 		DatabaseHelper dbh = new DatabaseHelper();
 		//return dbh.executeQueryProv(query);
-		return dbh.selectAll(query, Proveedor.class);
+		return dbh.selectAll(query, Proveedor.class);*/
+		
+		SessionFactory factoriaS = HibernateHelper.getSessionFactory();
+		Session session = factoriaS.openSession();
+		Query consulta = session.createQuery("from Proveedor proveedores");
+		List<Proveedor> lista =  consulta.list();
+		session.close();
+		return lista;
 	}
 	public static Proveedor getProveedor(int cve) throws DataBaseException//throws SQLException
 	{
-		String query = "SELECT * FROM proveedores WHERE cve_prov="+cve;
+		/*String query = "SELECT * FROM proveedores WHERE cve_prov="+cve;
 		DatabaseHelper dbh = new DatabaseHelper();
 		List<Proveedor> lista =  dbh.executeQueryProv(query);
-		return lista.get(0);
+		return lista.get(0);*/
+		
+		SessionFactory factoriaS = HibernateHelper.getSessionFactory();
+		Session session = factoriaS.openSession();
+		return (Proveedor) session.get(Proveedor.class, cve);
 	}
 	
 	public static void insertar(String nombre, String email, String tel) throws DataBaseException
 	{
-		String query = "INSERT INTO proveedores (nom_prov, email_prov, tel_prov) VALUES ";
+		/*String query = "INSERT INTO proveedores (nom_prov, email_prov, tel_prov) VALUES ";
 		query += "('"+nombre+"','"+email+"','"+tel+"')";
 		DatabaseHelper dbh = new DatabaseHelper();
-		dbh.insertarVideojuego(query);
+		dbh.insertarVideojuego(query);*/
+		
+		SessionFactory factoriaS = HibernateHelper.getSessionFactory();
+		Session session = factoriaS.openSession();
+		Transaction transaction = session.beginTransaction();
+		Proveedor p = new Proveedor(nombre, email, tel);
+		session.persist(p); //session.saveOrUpdate(v);
+		transaction.commit();
 	}
 }

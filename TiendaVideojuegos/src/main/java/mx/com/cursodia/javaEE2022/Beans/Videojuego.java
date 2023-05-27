@@ -13,10 +13,41 @@ import mx.com.cursodia.javaEE2022.DataBaseH.DataBaseException;
 import mx.com.cursodia.javaEE2022.DataBaseH.DatabaseHelper;
 import mx.com.cursodia.javaEE2022.DataBaseH.HibernateHelper;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Persistence;
+import javax.persistence.Table;
+import javax.persistence.TypedQuery;
+
+//@ anotaciones!! formas en las que nos comunicamos con el framework
+//Equivalente a una tabla en una base de datos - ENTIDADES
+@Entity
+@Table(name="videojuegos") //
 public class Videojuego {
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="cve_vid")
 	private int cve_vid;
 	private String tit_vid;
 	private float pre_vid;
+	
+	@ManyToOne // Muchos a uno - relacion que tiene
+	@JoinColumn(name="cveprov_vid", referencedColumnName="cve_prov", insertable=false, updatable=false, nullable=false) //no se puede insertar ni actualizar desde aqui la tabla proveedor
+	private Proveedor proveedor;
+	private Proveedor getProveedor()
+	{
+		return proveedor;
+	}
+	public void setProveedor(Proveedor proveedor)
+	{
+		this.proveedor = proveedor;
+	}
 	private int cveprov_vid;
 	private int inv_vid;
 	
@@ -32,7 +63,6 @@ public class Videojuego {
 	}
 	public Videojuego(String tit_vid, float pre_vid, int cveprov_vid, int inv_vid) 
 	{
-		this.cve_vid = cve_vid;
 		this.tit_vid = tit_vid;
 		this.pre_vid = pre_vid;
 		this.cveprov_vid = cveprov_vid;
@@ -105,10 +135,21 @@ public class Videojuego {
 		DatabaseHelper dbh = new DatabaseHelper();
 		return dbh.selectAll(query, Videojuego.class);*/
 		
-		SessionFactory factoriaS = HibernateHelper.getSessionFactory();
+		/*SessionFactory factoriaS = HibernateHelper.getSessionFactory();
 		Session session = factoriaS.openSession();
-		List<Videojuego> lista = session.createQuery("from Videojuego videojuegos").list();
-		session.close();
+		Query consulta = session.createQuery("from Videojuego videojuegos");
+		List<Videojuego> lista =  consulta.list();
+		//List<Videojuego> lista = session.createQuery("from Videojuego videojuegos").list();
+		session.close();*/
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JavaEE2022");
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<Videojuego> query = em.createQuery("SELECT V FROM Videojuego V", Videojuego.class);
+		List<Videojuego> lista = query.getResultList();
+		for(Videojuego v: lista)
+		{
+			System.out.println(v.getTit_vid());
+		}
 		return lista;
 	}
 	public static Videojuego getVideojuego(int cve) throws DataBaseException
@@ -146,7 +187,7 @@ public class Videojuego {
 		Session session = factoriaS.openSession();
 		Transaction transaction = session.beginTransaction();
 		Videojuego v = new Videojuego(cve, titulo, precio, cveprov, inventario);
-		session.persist(v); //session.saveOrUpdate(v);
+		session.saveOrUpdate(v); //session.saveOrUpdate(v);
 		transaction.commit();
 	}
 }

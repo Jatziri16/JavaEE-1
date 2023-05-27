@@ -13,7 +13,8 @@ public class FiltrarVideojuegosPorProveedorAccion extends Accion{
 
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("Proveedor a filtrar");
+		System.out.println("--> FiltrarVideojuegosPorProveedorAccion");
+		System.out.println("Proveedor a filtrar -- "+request.getParameter("Proveedor"));
 		List<Videojuego> listaVideojuegos = null;
 		List<Proveedor> listaProveedores = null;
 		try 
@@ -36,6 +37,7 @@ public class FiltrarVideojuegosPorProveedorAccion extends Accion{
 		request.setAttribute("listaVideojuegos", listaVideojuegos);
 		request.setAttribute("listaProveedores", listaProveedores);
 		
+		System.out.println("-- redirect: MostrarVideojuegos.do");
 		return "MostrarVideojuegos.do";
 	}
 

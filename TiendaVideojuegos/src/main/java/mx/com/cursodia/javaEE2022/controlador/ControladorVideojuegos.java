@@ -38,12 +38,14 @@ public class ControladorVideojuegos extends HttpServlet {
 				if(request.getParameter("Proveedor").equals("Todos"))
 				{
 					System.out.println("Muestra todos los videojuegos");
-					accion.getAccion("/MostrarVideojuegos.do");
+					//accion.getAccion("/MostrarVideojuegos.do");
+					response.sendRedirect(accion.getAccion("/MostrarVideojuegos.do").ejecutar(request, response));
 				}
 				else
 				{
 					System.out.println("Filtra por proveedor: "+request.getParameter("Proveedor"));
-					accion.getAccion("/FiltrarVideojuegosPorProveedor.do");
+					//accion.getAccion("/FiltrarVideojuegosPorProveedor.do");
+					response.sendRedirect(accion.getAccion("/FiltrarVideojuegosPorProveedor.do").ejecutar(request, response));
 				}
 				//Despues de que haga su trabajo a donde se va a redirijisr
 				despachador = request.getRequestDispatcher(accion.ejecutar(request, response));
