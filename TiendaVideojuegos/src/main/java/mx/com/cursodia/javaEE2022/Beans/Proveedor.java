@@ -44,7 +44,7 @@ public class Proveedor {
 	String tel_prov;
 	
 	
-	public Proveedor(int cve_prov, String nom_prov, String email_prov, String tel_prov) {
+	public Proveedor(Integer cve_prov, String nom_prov, String email_prov, String tel_prov) {
 		super();
 		this.cve_prov = cve_prov;
 		this.nom_prov = nom_prov;
@@ -96,18 +96,19 @@ public class Proveedor {
 		//return dbh.executeQueryProv(query);
 		return dbh.selectAll(query, Proveedor.class);*/
 		
-		/*SessionFactory factoriaS = HibernateHelper.getSessionFactory();
+		SessionFactory factoriaS = HibernateHelper.getSessionFactory();
 		Session session = factoriaS.openSession();
 		Query consulta = session.createQuery("from Proveedor proveedores");
 		List<Proveedor> lista =  consulta.list();
 		session.close();
-		return lista;*/
+		return lista;
 		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JavaEE2022");
+		/*EntityManagerFactory emf = Persistence.createEntityManagerFactory("JavaEE2022");
 		EntityManager em = emf.createEntityManager();
 		TypedQuery<Proveedor> query = em.createQuery("SELECT P FROM Proveedor P", Proveedor.class);
 		List<Proveedor> lista = query.getResultList();
-		return lista;
+		//em.close();
+		return lista;*/
 	}
 	public static Proveedor getProveedor(int cve) throws DataBaseException//throws SQLException
 	{

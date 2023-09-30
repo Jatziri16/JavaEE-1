@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import mx.com.cursodia.javaEE2022.Beans.Proveedor;
 import mx.com.cursodia.javaEE2022.Beans.Videojuego;
 import mx.com.cursodia.javaEE2022.DataBaseH.DataBaseException;
+import mx.com.cursodia.javaEE2022.IOC.VideojuegoDAOFactory;
+import mx.com.cursodia.javaEE2022.dao.VideojuegoDAOJPAImpl;
 
 public class MostrarVideojuegosAccion extends Accion {
 
@@ -17,7 +19,8 @@ public class MostrarVideojuegosAccion extends Accion {
 		List<Videojuego> listaVideojuegos = null;
 		List<Proveedor> listaProveedores = null;
 		try {
-			listaVideojuegos = Videojuego.buscarTodos();
+			//listaVideojuegos = new VideojuegoDAOJPAImpl().buscarTodos();
+			listaVideojuegos = VideojuegoDAOFactory.getInstance().buscarTodos();
 			listaProveedores = Proveedor.getProveedores();
 		} catch (DataBaseException e) {
 			// TODO Auto-generated catch block
@@ -30,5 +33,4 @@ public class MostrarVideojuegosAccion extends Accion {
 		
 		return "MostrarVideojuegos.jsp";
 	}
-
 }

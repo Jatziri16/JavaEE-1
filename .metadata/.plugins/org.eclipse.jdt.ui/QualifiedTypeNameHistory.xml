@@ -48,7 +48,14 @@
     <fullyQualifiedTypeName name="javax.persistence.EntityManager"/>
     <fullyQualifiedTypeName name="javax.persistence.TypedQuery"/>
     <fullyQualifiedTypeName name="mx.com.cursodia.javaEE2022.Beans.Videojuego"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="javax.persistence.EntityManagerFactory"/>
     <fullyQualifiedTypeName name="javax.persistence.Persistence"/>
+    <fullyQualifiedTypeName name="javax.persistence.EntityTransaction"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.io.Serializable"/>
+    <fullyQualifiedTypeName name="java.lang.ReflectiveOperationException"/>
+    <fullyQualifiedTypeName name="javax.persistence.PersistenceException"/>
+    <fullyQualifiedTypeName name="mx.com.cursodia.javaEE2022.dao.VideojuegoDAOJPAImpl"/>
+    <fullyQualifiedTypeName name="mx.com.cursodia.javaEE2022.dao.VideojuegoDAO"/>
+    <fullyQualifiedTypeName name="mx.com.cursodia.javaEE2022.IOC.VideojuegoDAOFactory"/>
 </qualifiedTypeNameHistroy>

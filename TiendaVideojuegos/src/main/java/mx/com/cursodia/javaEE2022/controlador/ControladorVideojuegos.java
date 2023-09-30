@@ -39,16 +39,20 @@ public class ControladorVideojuegos extends HttpServlet {
 				{
 					System.out.println("Muestra todos los videojuegos");
 					//accion.getAccion("/MostrarVideojuegos.do");
-					response.sendRedirect(accion.getAccion("/MostrarVideojuegos.do").ejecutar(request, response));
+					//response.sendRedirect(accion.getAccion("/MostrarVideojuegos.do").ejecutar(request, response));
+					despachador = request.getRequestDispatcher(accion.getAccion("/MostrarVideojuegos.do").ejecutar(request, response));
+					
+					
 				}
 				else
 				{
 					System.out.println("Filtra por proveedor: "+request.getParameter("Proveedor"));
 					//accion.getAccion("/FiltrarVideojuegosPorProveedor.do");
-					response.sendRedirect(accion.getAccion("/FiltrarVideojuegosPorProveedor.do").ejecutar(request, response));
+					//response.sendRedirect(accion.getAccion("/FiltrarVideojuegosPorProveedor.do").ejecutar(request, response));
+					despachador = request.getRequestDispatcher(accion.getAccion("/FiltrarVideojuegosPorProveedor.do").ejecutar(request, response));
 				}
 				//Despues de que haga su trabajo a donde se va a redirijisr
-				despachador = request.getRequestDispatcher(accion.ejecutar(request, response));
+				//despachador = request.getRequestDispatcher(accion.ejecutar(request, response));
 				//Empaquetamos la respuesta
 				despachador.forward(request, response);
 				
@@ -114,6 +118,12 @@ public class ControladorVideojuegos extends HttpServlet {
 				//response.sendRedirect(accion.ejecutar(request, response));
 				response.sendRedirect(accion.getAccion("/ModificarVideojuego.do").ejecutar(request, response));
 				//response.sendRedirect("MostrarVideojuegos.do");
+			} else if(request.getServletPath().equals("/BorrarVideojuego.do"))
+			{
+				System.out.println("--> BorrarVideojuego.do");
+				//accion = new InsertarVideojuegoAccion();
+				//response.sendRedirect(accion.ejecutar(request, response));
+				response.sendRedirect(accion.getAccion("/BorrarVideojuego.do").ejecutar(request, response));
 			}
 		/*} catch (DataBaseException e) {
 			// TODO Auto-generated catch block

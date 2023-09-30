@@ -25,6 +25,7 @@
 							<%@ page import="mx.com.cursodia.javaEE2022.Beans.Videojuego"%>
 							<% 
 								String clave = request.getParameter("CVE");
+								System.out.println("Form Insertar Videojuego clave?= "+clave);
 								if(Objects.isNull(clave))
 								{%>
 									<form action="InsertarVideojuego.do" method="GET">
@@ -60,7 +61,7 @@
 										<div class="text-danger invalido" id="warn_inventario"></div>
 										
 										<button type="submit" class="button btn-insertar mt-3 mb-2" type="button" value="Insertar">INSERTAR</button>
-										<a  role="button" class="button btn-cancelar  mb-3" href="MostrarVideojuegos.jsp"> Cancelar </a>
+										<a  role="button" class="button btn-cancelar  mb-3" href="/TiendaVideojuegos"> Cancelar </a>
 									
 									</form>
 								<%}

@@ -19,7 +19,7 @@
 	        	<h3>Lista de Proveedores</h3>
 	        	<div>
 			        <a class="btn btn-secondary" href="FormularioInsertarProveedor.jsp" role="button"> Agregar Proveedor </a>
-			        <a class="btn btn-secondary" href="MostrarVideojuegos.jsp" role="button"> Videojuegos </a>
+			        <a class="btn btn-secondary" href="MostrarVideojuegos.do" role="button"> Videojuegos </a>
 	        	</div>
 	        </div>
 	        

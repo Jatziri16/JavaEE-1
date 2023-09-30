@@ -72,9 +72,8 @@
 							<td>${Videojuego.pre_vid}</td>
 							<td>${Videojuego.cveprov_vid}</td>
 							<td>${Videojuego.inv_vid}</td>
-							<td>
-								<input type="button" class="edit" value="Editar" onclick="location.href= 'FormularioInsertarVideojuego.do?CVE=${Videojuego.cve_vid}'"/>
-							</td>
+							<td><input type="button" class="edit" value="Editar" onclick="location.href= 'FormularioInsertarVideojuego.do?CVE=${Videojuego.cve_vid}'"/></td>
+							<td><input type="button" class="edit" value="Borrar" onclick="location.href= 'BorrarVideojuego.do?CVE=${Videojuego.cve_vid}'"/></td>
 						</tr>
 					</c:forEach>
 	          	</tbody>
